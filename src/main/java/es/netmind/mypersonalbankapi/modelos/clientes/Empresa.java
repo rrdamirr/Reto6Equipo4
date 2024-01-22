@@ -1,8 +1,16 @@
 package es.netmind.mypersonalbankapi.modelos.clientes;
 
+import lombok.*;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Entity
 public class Empresa extends Cliente {
     private String cif;
     private String[] unidadesNegocio;
@@ -43,11 +51,11 @@ public class Empresa extends Cliente {
         this.unidadesNegocio = unidadesNegocio;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Empresa{" +
                 "cif='" + cif + '\'' +
                 ", unidadesNegocio=" + Arrays.toString(unidadesNegocio) +
                 "} " + super.toString();
-    }
+    }*/
 }

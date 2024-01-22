@@ -1,7 +1,15 @@
 package es.netmind.mypersonalbankapi.modelos.clientes;
 
+import lombok.*;
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Entity
 public class Personal extends Cliente {
     private String dni;
 
@@ -32,10 +40,10 @@ public class Personal extends Cliente {
         if(validarDNI(dni)) this.dni = dni;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Personal{" +
                 "dni='" + dni + '\'' +
                 "} " + super.toString();
-    }
+    }*/
 }
