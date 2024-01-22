@@ -16,8 +16,8 @@ public class ClienteRepoJPA implements IClientesRepo{
     private EntityManager em;
 
     @Override
-    public List<Cliente> getAll() throws Exception {
-        return null;
+    public List<Cliente> getAll() throws RuntimeException {
+        return em.createQuery("SELECT c FROM Cliente c", Cliente.class).getResultList();
     }
 
     @Override
@@ -38,7 +38,12 @@ public class ClienteRepoJPA implements IClientesRepo{
     }
 
     @Override
+    @Transactional
     public Cliente updateClient(Cliente cliente) throws Exception {
-        return null;
+        Cliente uCl = em.find(Cliente.class, cliente.getId());
+
+        uCl.setNombre(cliente.getNombre());
+        uCl.setDireccion(cliente.getDireccion());
+        return uCl;
     }
 }
