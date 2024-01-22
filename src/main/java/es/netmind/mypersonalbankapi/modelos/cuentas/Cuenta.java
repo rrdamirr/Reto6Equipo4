@@ -1,16 +1,32 @@
 package es.netmind.mypersonalbankapi.modelos.cuentas;
 
+import es.netmind.mypersonalbankapi.modelos.clientes.Cliente;
+import lombok.*;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Cuenta {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private LocalDate fechaCreacion;
     private Double saldo;
+    @Transient
     private List<Transaccion> transacciones;
     private Double interes;
     private Double comision;
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
     /* CONSTRUCTOR */
     public Cuenta(Integer id, LocalDate fechaCreacion, Double saldo, Double interes, Double comision) {
@@ -88,7 +104,7 @@ public abstract class Cuenta {
     }
 
 
-    @Override
+    /*@Override
     public String toString() {
         return "Cuenta{" +
                 "id=" + id +
@@ -98,5 +114,5 @@ public abstract class Cuenta {
                 ", interes=" + interes +
                 ", comision=" + comision +
                 '}';
-    }
+    }*/
 }

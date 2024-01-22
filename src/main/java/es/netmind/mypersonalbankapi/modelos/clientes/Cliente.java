@@ -26,9 +26,13 @@ public abstract class Cliente {
     private LocalDate alta;
     private boolean activo;
     private boolean moroso;
-    @Transient
+//    @Transient
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "cliente")
+    @ToString.Exclude
     private List<Cuenta> cuentas;
-    @Transient
+//    @Transient
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "cliente")
+    @ToString.Exclude
     private List<Prestamo> prestamos;
 
     /* CONSTRUCTOR */

@@ -3,9 +3,19 @@ package es.netmind.mypersonalbankapi.modelos.cuentas;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.*;
+import javax.persistence.*;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Entity
 public class Corriente extends Cuenta {
+    @Transient
     private List<Cheque> chequesIngresados;
+    @Transient
     private List<Cheque> chequesEmitidos;
 
     public Corriente(Integer id, LocalDate fechaCreacion, Double saldo, Double interes, Double comision) {
@@ -37,11 +47,11 @@ public class Corriente extends Cuenta {
         return chequesEmitidos;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Corriente{" +
                 "chequesIngresados=" + chequesIngresados +
                 ", chequesEmitidos=" + chequesEmitidos +
                 "} " + super.toString();
-    }
+    }*/
 }

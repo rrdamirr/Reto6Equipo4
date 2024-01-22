@@ -1,21 +1,39 @@
 package es.netmind.mypersonalbankapi.modelos.prestamos;
 
+import es.netmind.mypersonalbankapi.modelos.clientes.Cliente;
+import lombok.*;
+import javax.persistence.*;
+import javax.persistence.Transient;
 import java.time.LocalDate;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Prestamo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private LocalDate fechaConcesion;
     private Double monto;
     private Double saldo;
     private Double mensualidad;
     private Integer anios;
+    @Transient
     private List<Pago> pagos;
+    @Transient
     private List<Mora> moras;
     private Integer interes;
     private Integer interesMora;
     private boolean moroso;
     private boolean liquidado;
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
     /* CONSTRUCTOR */
     public Prestamo(Integer id, LocalDate fechaConcesion, Double monto, Double saldo, Integer interes, Integer interesMora, boolean moroso, boolean liquidado, Integer anios) {
@@ -141,7 +159,7 @@ public class Prestamo {
     }
 
     /* TOSTRING */
-    @Override
+    /*@Override
     public String toString() {
         return "Prestamo{" +
                 "id=" + id +
@@ -155,5 +173,5 @@ public class Prestamo {
                 ", moroso=" + moroso +
                 ", liquidado=" + liquidado +
                 '}';
-    }
+    }*/
 }
