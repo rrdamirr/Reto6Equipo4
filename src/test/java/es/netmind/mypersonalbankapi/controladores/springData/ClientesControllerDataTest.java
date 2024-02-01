@@ -1,11 +1,14 @@
-package es.netmind.mypersonalbankapi.controladores;
+package es.netmind.mypersonalbankapi.controladores.springData;
 
+import es.netmind.mypersonalbankapi.config.SpringConfig;
+import es.netmind.mypersonalbankapi.controladores.ClientesController;
 import es.netmind.mypersonalbankapi.exceptions.ClienteException;
 import es.netmind.mypersonalbankapi.modelos.clientes.Cliente;
 import es.netmind.mypersonalbankapi.modelos.clientes.Personal;
 import es.netmind.mypersonalbankapi.persistencia.*;
 import es.netmind.mypersonalbankapi.persistencia.IClientesRepo;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -17,6 +20,9 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -24,11 +30,16 @@ import java.io.PrintStream;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-
-class ClientesControllerTest {
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {SpringConfig.class})
+@EnableAutoConfiguration
+public class ClientesControllerDataTest {
+    @Autowired
+    private IClientesRepoData repoCliente;
 
     @Autowired
-    ClientesController clientesController;
+    private ClientesController clientesController;
+
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -50,13 +61,13 @@ class ClientesControllerTest {
         String [] persona={"personal", "Juan Juanez", "jj@j.com", "Calle JJ 1", fechaHoy, "12345678J"};
 
        //IClientesRepo clientesRepo = ClientesInMemoryRepo.getInstance();
-       IClientesRepo clientesRepo = ClientesInDBRepo.getInstance();
-       List<Cliente> clientes = clientesRepo.getAll();
+       //IClientesRepo clientesRepo = repoCliente.getInstance();
+       List<Cliente> clientes = repoCliente.findAll();
        int numClientes = clientes.size();
-        System.out.println("Numero clientes ini: " +numClientes);
+       System.out.println("Numero clientes ini: " +numClientes);
         //Cuando
         clientesController.add(persona);
-        List<Cliente> clientes_new = clientesRepo.getAll();
+        List<Cliente> clientes_new = repoCliente.findAll();
 
         System.out.println("NumClientes nuevo: " + clientes_new.size() );
 

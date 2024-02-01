@@ -53,7 +53,7 @@ public class Main {
         String arg1 = args[1].toLowerCase();
 
         if (arg1.equals("list")) ClientesController.mostrarLista();
-        else if (arg1.equals("add")) ClientesController.add(Arrays.copyOfRange(args, 2, argsLength));
+      //  else if (arg1.equals("add")) ClientesController.add(Arrays.copyOfRange(args, 2, argsLength));
         else if (arg1.equals("remove")) ClientesController.eliminar(Integer.valueOf(args[2]));
         else if (arg1.equals("update"))
             ClientesController.actualizar(Integer.valueOf(args[2]), Arrays.copyOfRange(args, 3, argsLength));

@@ -5,23 +5,29 @@ import es.netmind.mypersonalbankapi.modelos.clientes.Cliente;
 import es.netmind.mypersonalbankapi.modelos.prestamos.Prestamo;
 import es.netmind.mypersonalbankapi.persistencia.*;
 import es.netmind.mypersonalbankapi.utils.ClientesUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class ClientesController {
 
-    //private static IClientesRepo clientesRepo = ClientesInMemoryRepo.getInstance();
-    private static IClientesRepo clientesRepo;
 
-    static {
+     @Autowired
+    private static IClientesRepoData clientesRepo;
+
+  /*  static {
         try {
             clientesRepo = ClientesInDBRepo.getInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
     private static ICuentasRepo cuentasRepo = CuentasInMemoryRepo.getInstance();
     private static IPrestamosRepo prestamosRepo = PrestamosInMemoryRepo.getInstance();
@@ -29,7 +35,7 @@ public class ClientesController {
     public static void mostrarLista() throws Exception {
         System.out.println("\nLista de clientes:");
         System.out.println("───────────────────────────────────");
-        List<Cliente> clientes = clientesRepo.getAll();
+        List<Cliente> clientes = clientesRepo.findAll();
         for (Cliente cl : clientes) {
 
             try {
@@ -48,23 +54,25 @@ public class ClientesController {
         System.out.println("\nDetalle de cliente: " + uid);
         System.out.println("───────────────────────────────────");
 
-        try {
-            Cliente cl = clientesRepo.getClientById(uid);
+       // try {
+            Optional<Cliente> op = clientesRepo.findById(uid);
+            Cliente cl = op.get();
             System.out.println(cl);
-        } catch (ClienteException e) {
+        /*} catch (ClienteException e) {
             System.out.println("Cliente NO encontrado 😞! \nCode: " + e.getCode());
         } catch (Exception e) {
-            System.out.println("Oops ha habido un problema, inténtelo más tarde 😞!");
-        }
+        /*    System.out.println("Oops ha habido un problema, inténtelo más tarde 😞!");
+        }*/
 
     }
 
-    public static void add(String[] args) {
+    @Transactional
+    public void add(String[] args) {
         System.out.println("\nAñadiendo cliente");
         System.out.println("───────────────────────────────────");
         try {
             Cliente cl = ClientesUtils.extractClientFromArgsForCreate(args);
-            clientesRepo.addClient(cl);
+            clientesRepo.save(cl);
             System.out.println("Cliente añadido: " + cl + " 🙂");
             mostrarLista();
         } catch (ClienteException e) {
@@ -81,14 +89,18 @@ public class ClientesController {
 
     }
 
+    @Transactional
     public static void eliminar(Integer uid) {
         System.out.println("\nBorrando cliente: " + uid);
         System.out.println("───────────────────────────────────");
 
         try {
-            Cliente cl = clientesRepo.getClientById(uid);
-            boolean borrado = clientesRepo.deleteClient(cl);
-            if (borrado) {
+            Optional<Cliente> op = clientesRepo.findById(uid);
+            Cliente cl = op.get();
+            clientesRepo.delete(cl);
+            Optional<Cliente> op2 = clientesRepo.findById(uid);
+            Cliente cl2 = op2.get();
+            if (cl2 == null) {
                 System.out.println("Cliente borrado 🙂!!");
                 mostrarLista();
             } else System.out.println("Cliente NO borrado 😞!! Consulte con su oficina.");
@@ -100,15 +112,17 @@ public class ClientesController {
 
     }
 
+    @Transactional
     public static void actualizar(Integer uid, String[] args) {
         System.out.println("\nActualizando cliente: " + uid);
         System.out.println("───────────────────────────────────");
 
         try {
-            Cliente cl = clientesRepo.getClientById(uid);
+            Optional<Cliente> op = clientesRepo.findById(uid);
+            Cliente cl = op.get();
             System.out.println("cl.getClass():" + cl.getClass() + " " + cl);
             ClientesUtils.updateClientFromArgs(cl, args);
-            clientesRepo.updateClient(cl);
+            clientesRepo.save(cl);
             System.out.println("Cliente actualizado 🙂!!");
             System.out.println(cl);
             mostrarLista();
@@ -127,8 +141,9 @@ public class ClientesController {
         System.out.println("\nEvaluando préstamos de " + cantidad + " EUR para el  cliente: " + uid);
         System.out.println("───────────────────────────────────");
 
-        try {
-            Cliente cliente = clientesRepo.getClientById(uid);
+       // try {
+            Optional<Cliente> op = clientesRepo.findById(uid);
+            Cliente cliente = op.get();
             System.out.println("Saldo total del cliente: " + cliente.obtenerSaldoTotal());
             int numPrestamos = cliente.getPrestamos() != null ? cliente.getPrestamos().size() : 0;
             System.out.println("Número total de préstamos del cliente: " + numPrestamos);
@@ -139,12 +154,12 @@ public class ClientesController {
             if (aceptable) System.out.println("SÍ se puede conceder 🙂!!");
             else System.out.println("NO puede conceder 😞!! Saldo insuficiente.");
 
-        } catch (ClienteException e) {
+       /* } catch (ClienteException e) {
             System.out.println("Cliente NO encontrado 😞! \nCode: " + e.getCode());
         } catch (Exception e) {
             System.out.println("Oops ha habido un problema, inténtelo más tarde 😞!");
             e.printStackTrace();
-        }
+        }*/
 
 
     }
