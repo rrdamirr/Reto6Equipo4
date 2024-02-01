@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import es.netmind.mypersonalbankapi.modelos.cuentas.Cuenta;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +36,7 @@ public class CuentaRepoDataTest {
     }
 
     @Test
-    void getAccountById() {
+    void        getAccountById() {
         Optional<Cuenta> op = repoCuenta.findById(1);
         Cuenta aCuenta = op.get();
         System.out.println("aCuenta +++:"+aCuenta);
@@ -55,7 +56,7 @@ public class CuentaRepoDataTest {
 
     @Test
     void deleteAccount() {
-         Optional<Cuenta> op = repoCuenta.findById(3);
+         Optional<Cuenta> op = repoCuenta.findById(6);
         Cuenta cue = op.get();
         repoCuenta.delete(cue);
         System.out.println("cue +++: " + cue);
@@ -67,7 +68,7 @@ public class CuentaRepoDataTest {
         Optional<Cuenta> op = repoCuenta.findById(2);
         Cuenta cuUpd = op.get();
 
-         Cuenta newCue = new Ahorro(null, LocalDate.now(), 1000.0, cuUpd.getInteres(), cuUpd.getComision());
+         Cuenta newCue = new Ahorro(cuUpd.getId(), LocalDate.now(), 1000.0, cuUpd.getInteres(), cuUpd.getComision());
 
         Cuenta cCambiado = repoCuenta.save(newCue);
 
@@ -77,15 +78,23 @@ public class CuentaRepoDataTest {
     }
 
     @Test
+    @Transactional
     void findByCliente_Id() {
-//        List<Cuenta> cuentas = repoCuenta.findByCliente_Id(1);
-//
-//        System.out.println(cuentas);
-//
-//        assertThat(cuentas.size(), greaterThan(0));
+        List<Cuenta> cuentas = repoCuenta.findByCliente_Id(1);
+
+        System.out.println("Cuentas: ++++++" + cuentas);
+       // System.out.println("Cuenta ID:" + cuentas.);
+
+        assertThat(cuentas.size(), greaterThan(0));
     }
 
     @Test
+    @Transactional
     void findByCliente_IdAndId() {
+
+        Cuenta nCuenta = repoCuenta.findByCliente_IdAndId(1, 3);
+        System.out.println("Cliente: " + nCuenta.getCliente().getId() + " /Cuenta: +++++ " + nCuenta.getId());
+        assertNotNull(nCuenta.getId());
+
     }
 }
