@@ -4,6 +4,7 @@ import es.netmind.mypersonalbankapi.config.SpringConfig;
 import es.netmind.mypersonalbankapi.controladores.ClientesController;
 import es.netmind.mypersonalbankapi.exceptions.ClienteException;
 import es.netmind.mypersonalbankapi.modelos.clientes.Cliente;
+import es.netmind.mypersonalbankapi.modelos.clientes.Empresa;
 import es.netmind.mypersonalbankapi.modelos.clientes.Personal;
 import es.netmind.mypersonalbankapi.persistencia.*;
 import es.netmind.mypersonalbankapi.persistencia.IClientesRepo;
@@ -26,6 +27,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.*;
@@ -95,6 +98,48 @@ public class ClientesControllerDataTest {
         System.out.println(outContent);
         assertThat(outContent.toString(), containsString("Cliente NO válido"));
     }
+
+     @Test
+    void mostrar_lista() throws Exception {
+       clientesController.mostrarLista();
+       assertTrue(true);
+     }
+
+     @Test
+    void mostrarDetalle() throws Exception {
+       clientesController.mostrarDetalle(1);
+       assertTrue(true);
+     }
+
+      @Test
+    void eliminar() throws Exception {
+       clientesController.eliminar(11);
+       Optional<Cliente> op = repoCliente.findById(11);
+       assertThrows(NoSuchElementException.class, ()->{
+            Cliente cl = op.get();
+        });
+
+     }
+
+     @Test
+     void actualizar() throws Exception {
+       Optional<Cliente> op = repoCliente.findById(6);
+       Cliente cl = op.get();
+       boolean TipoPersonal = cl instanceof Personal;
+
+
+        String [] datos = {, };
+       if (TipoPersonal) {
+           datos = new String[]{cl.getNombre(), cl.getEmail(), "calle puerta dorada", LocalDate.now().toString(), "true", "false", ((Personal) cl).getDni().toString(), "null"};
+        } else {
+            datos = new String[]{cl.getNombre(), cl.getEmail(), "calle puerta dorada", LocalDate.now().toString(), "true", "false", ((Empresa) cl).getCif().toString(), "null"};
+        }
+
+       clientesController.actualizar(6,datos);
+       Optional<Cliente> op2 = repoCliente.findById(6);
+       Cliente clA = op2.get();
+       assertEquals(clA.getDireccion(), "calle puerta dorada");
+     }
 
     @AfterEach
     public void restoreStreams() {

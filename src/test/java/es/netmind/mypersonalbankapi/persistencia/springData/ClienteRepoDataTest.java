@@ -74,6 +74,7 @@ class ClienteRepoDataTest {
         boolean TipoPersonal = clUpd instanceof Personal;
 
         Cliente newCl = null;
+
         if (TipoPersonal) {
             newCl = new Personal(clUpd.getId(), "3Fantasticos", clUpd.getEmail(), "La calle de la Risa", LocalDate.now(), true, false, ((Personal) clUpd).getDni());
         } else {

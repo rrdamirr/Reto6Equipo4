@@ -19,7 +19,7 @@ public class ClientesController {
 
 
      @Autowired
-    private static IClientesRepoData clientesRepo;
+    private IClientesRepoData clientesRepo;
 
   /*  static {
         try {
@@ -32,7 +32,7 @@ public class ClientesController {
     private static ICuentasRepo cuentasRepo = CuentasInMemoryRepo.getInstance();
     private static IPrestamosRepo prestamosRepo = PrestamosInMemoryRepo.getInstance();
 
-    public static void mostrarLista() throws Exception {
+    public void mostrarLista() throws Exception {
         System.out.println("\nLista de clientes:");
         System.out.println("───────────────────────────────────");
         List<Cliente> clientes = clientesRepo.findAll();
@@ -50,7 +50,7 @@ public class ClientesController {
         }
     }
 
-    public static void mostrarDetalle(Integer uid) {
+    public void mostrarDetalle(Integer uid) {
         System.out.println("\nDetalle de cliente: " + uid);
         System.out.println("───────────────────────────────────");
 
@@ -72,9 +72,14 @@ public class ClientesController {
         System.out.println("───────────────────────────────────");
         try {
             Cliente cl = ClientesUtils.extractClientFromArgsForCreate(args);
-            clientesRepo.save(cl);
-            System.out.println("Cliente añadido: " + cl + " 🙂");
-            mostrarLista();
+            boolean valido = cl.validar();
+            if(valido) {
+                clientesRepo.save(cl);
+                System.out.println("Cliente añadido: " + cl + " 🙂");
+                mostrarLista();
+            }else{
+               System.out.println("Cliente NO válido 😞! ");
+            }
         } catch (ClienteException e) {
             System.out.println("ME voy por aqui 1");
             System.out.println("Cliente NO válido 😞! \nCode: " + e.getCode());
@@ -90,7 +95,7 @@ public class ClientesController {
     }
 
     @Transactional
-    public static void eliminar(Integer uid) {
+    public void eliminar(Integer uid) {
         System.out.println("\nBorrando cliente: " + uid);
         System.out.println("───────────────────────────────────");
 
@@ -113,7 +118,7 @@ public class ClientesController {
     }
 
     @Transactional
-    public static void actualizar(Integer uid, String[] args) {
+    public void actualizar(Integer uid, String[] args) {
         System.out.println("\nActualizando cliente: " + uid);
         System.out.println("───────────────────────────────────");
 
@@ -137,7 +142,7 @@ public class ClientesController {
 
     }
 
-    public static void evaluarPrestamo(Integer uid, Double cantidad) {
+    public void evaluarPrestamo(Integer uid, Double cantidad) {
         System.out.println("\nEvaluando préstamos de " + cantidad + " EUR para el  cliente: " + uid);
         System.out.println("───────────────────────────────────");
 
