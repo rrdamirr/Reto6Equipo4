@@ -36,7 +36,7 @@ public class CuentaRepoDataTest {
     }
 
     @Test
-    void        getAccountById() {
+    void getAccountById() {
         Optional<Cuenta> op = repoCuenta.findById(1);
         Cuenta aCuenta = op.get();
         System.out.println("aCuenta +++:"+aCuenta);
@@ -82,8 +82,9 @@ public class CuentaRepoDataTest {
     void findByCliente_Id() {
         List<Cuenta> cuentas = repoCuenta.findByCliente_Id(1);
 
-        System.out.println("Cuentas: ++++++" + cuentas);
-       // System.out.println("Cuenta ID:" + cuentas.);
+        for (Cuenta cprint: cuentas) {
+            System.out.println("Cuentas: ++++++" + cprint.getId());
+        }
 
         assertThat(cuentas.size(), greaterThan(0));
     }

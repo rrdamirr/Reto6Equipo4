@@ -25,6 +25,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.transaction.Transactional;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.NoSuchElementException;
@@ -100,19 +101,24 @@ public class ClientesControllerDataTest {
     }
 
      @Test
-    void mostrar_lista() throws Exception {
+    void dado_mostrarlista_cuandohayclientes_entoncesOK() throws Exception {
        clientesController.mostrarLista();
        assertTrue(true);
      }
 
      @Test
-    void mostrarDetalle() throws Exception {
+    void dado_mostrarDetalle_cuandoExisteCliente_entoncesOK() throws Exception {
        clientesController.mostrarDetalle(1);
        assertTrue(true);
      }
 
       @Test
-    void eliminar() throws Exception {
+    void dado_eliminarCliente_cuandoClienteExiste_entoncesOK() throws Exception {
+       clientesController.eliminar(7);
+
+     }
+     @Test
+    void dado_eliminarCliente_cuandoClienteNOexiste_entoncesNOK() throws Exception {
        clientesController.eliminar(11);
        Optional<Cliente> op = repoCliente.findById(11);
        assertThrows(NoSuchElementException.class, ()->{
@@ -122,7 +128,7 @@ public class ClientesControllerDataTest {
      }
 
      @Test
-     void actualizar() throws Exception {
+     void dado_actualizar_cuandoClienteExiste_entoncesOK() throws Exception {
        Optional<Cliente> op = repoCliente.findById(6);
        Cliente cl = op.get();
        boolean TipoPersonal = cl instanceof Personal;
@@ -139,6 +145,21 @@ public class ClientesControllerDataTest {
        Optional<Cliente> op2 = repoCliente.findById(6);
        Cliente clA = op2.get();
        assertEquals(clA.getDireccion(), "calle puerta dorada");
+     }
+
+     @Test
+     @Transactional
+     public void dadoEvaluarprestamo_cuandoImportecorrecto_entoncesOK() {
+        clientesController.evaluarPrestamo(1,6000.00);
+        assertThat(outContent.toString(), containsString("SÍ se puede conceder"));
+
+     }
+
+     @Test
+     @Transactional
+     public void dadoEvaluarprestamo_cuandoImporteIncorrecto_entoncesNOK() {
+        clientesController.evaluarPrestamo(1,6000000.00);
+        assertThat(outContent.toString(), containsString("NO puede conceder"));
      }
 
     @AfterEach
