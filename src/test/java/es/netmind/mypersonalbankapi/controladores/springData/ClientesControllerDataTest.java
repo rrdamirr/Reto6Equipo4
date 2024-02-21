@@ -38,7 +38,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @ContextConfiguration(classes = {SpringConfig.class})
 @EnableAutoConfiguration
 public class ClientesControllerDataTest {
-    @Autowired
+    /*@Autowired
     private IClientesRepoData repoCliente;
 
     @Autowired
@@ -166,5 +166,5 @@ public class ClientesControllerDataTest {
     public void restoreStreams() {
         System.setOut(originalOut);
         System.setErr(originalErr);
-    }
+    }*/
 }

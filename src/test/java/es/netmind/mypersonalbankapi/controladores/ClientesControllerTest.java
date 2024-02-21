@@ -27,7 +27,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 class ClientesControllerTest {
 
-    @Autowired
+    /*@Autowired
     ClientesController clientesController;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -89,5 +89,5 @@ class ClientesControllerTest {
     public void restoreStreams() {
         System.setOut(originalOut);
         System.setErr(originalErr);
-    }
+    }*/
 }

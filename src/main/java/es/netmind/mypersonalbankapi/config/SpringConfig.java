@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@PropertySource("classpath:config.properties")
+@PropertySource("classpath:_config.properties")
 @ComponentScan(basePackages = {"es.netmind.mypersonalbankapi.persistencia", "es.netmind.mypersonalbankapi.controladores"})
 @EntityScan("es.netmind.mypersonalbankapi.modelos")
 @EnableJpaRepositories(basePackages = {"es.netmind.mypersonalbankapi.persistencia"})

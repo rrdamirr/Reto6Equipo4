@@ -13,6 +13,10 @@ public class ClienteException extends Exception{
 		this.code = code;
 	}
 
+	public ClienteException(String message) {
+		super(message);
+	}
+
 	public ErrorCode getCode() {
 		return this.code;
 	}
