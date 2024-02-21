@@ -1,6 +1,7 @@
 package es.netmind.mypersonalbankapi.service;
 
 import es.netmind.mypersonalbankapi.exceptions.ClienteException;
+import es.netmind.mypersonalbankapi.exceptions.ClienteNotFoundException;
 import es.netmind.mypersonalbankapi.modelos.clientes.Cliente;
 import es.netmind.mypersonalbankapi.persistencia.IClientesRepoData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,9 @@ public class ServiceCliente {
         return IClientesRepoData.findByNameContaining(text);
     }*/
 
-    public List<Cliente> getAll() throws ClienteException {
+    public List<Cliente> getAll()  {
         List<Cliente> clientes = clientesRepo.findAll();
         if (clientes != null && clientes.size() > 0) return clientes;
-        else throw new ClienteException("La lista de clientes está vacía");
+        else throw new ClienteNotFoundException("La lista de clientes está vacía");
     }
 }
