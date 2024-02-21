@@ -3,12 +3,15 @@ package es.netmind.mypersonalbankapi.service;
 import es.netmind.mypersonalbankapi.exceptions.ClienteException;
 import es.netmind.mypersonalbankapi.exceptions.ClienteNotFoundException;
 import es.netmind.mypersonalbankapi.modelos.clientes.Cliente;
+import es.netmind.mypersonalbankapi.modelos.clientes.Empresa;
+import es.netmind.mypersonalbankapi.modelos.clientes.Personal;
 import es.netmind.mypersonalbankapi.persistencia.IClientesRepoData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,5 +31,18 @@ public class ServiceCliente {
         List<Cliente> clientes = clientesRepo.findAll();
         if (clientes != null && clientes.size() > 0) return clientes;
         else throw new ClienteNotFoundException("La lista de clientes está vacía");
+    }
+
+    public Cliente getClient(Integer id) {
+        Cliente client = clientesRepo.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
+        return client;
+    }
+
+    public Personal createPersonal(Personal personal) {
+        return clientesRepo.save(personal);
+    }
+
+    public Empresa createEmpresa(Empresa empresa) {
+        return clientesRepo.save(empresa);
     }
 }
