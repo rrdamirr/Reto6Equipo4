@@ -32,6 +32,7 @@ public class ClientesControlerAPI {
 
     private static final Logger logger = LoggerFactory.getLogger(ClientesControlerAPI.class);
 
+
     @Autowired
     private ServiceCliente service;
 
