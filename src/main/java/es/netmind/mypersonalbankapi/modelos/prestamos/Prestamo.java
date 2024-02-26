@@ -1,6 +1,7 @@
 package es.netmind.mypersonalbankapi.modelos.prestamos;
 
 import es.netmind.mypersonalbankapi.modelos.clientes.Cliente;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import javax.persistence.*;
 import javax.persistence.Transient;
@@ -14,6 +15,7 @@ import java.util.List;
 @ToString
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Schema(name = "loan", description = "Modelo préstamo")
 public class Prestamo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

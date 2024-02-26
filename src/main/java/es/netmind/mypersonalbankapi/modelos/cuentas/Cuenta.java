@@ -1,6 +1,7 @@
 package es.netmind.mypersonalbankapi.modelos.cuentas;
 
 import es.netmind.mypersonalbankapi.modelos.clientes.Cliente;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.util.List;
 @ToString
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Schema(name = "account", description = "Modelo cuenta")
 public abstract class Cuenta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

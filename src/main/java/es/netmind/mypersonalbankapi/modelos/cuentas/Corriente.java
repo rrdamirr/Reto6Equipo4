@@ -3,6 +3,8 @@ package es.netmind.mypersonalbankapi.modelos.cuentas;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import javax.persistence.*;
 
@@ -12,6 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 @Entity
+@Schema(name = "corriente", description = "Modelo corriente")
 public class Corriente extends Cuenta {
     @Transient
     private List<Cheque> chequesIngresados;

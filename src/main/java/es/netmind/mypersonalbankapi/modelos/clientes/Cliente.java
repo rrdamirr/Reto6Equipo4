@@ -3,9 +3,14 @@ package es.netmind.mypersonalbankapi.modelos.clientes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import es.netmind.mypersonalbankapi.modelos.cuentas.Cuenta;
 import es.netmind.mypersonalbankapi.modelos.prestamos.Prestamo;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,25 +22,47 @@ import java.util.List;
 @ToString
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Schema(name = "client", description = "Modelo cliente")
 public abstract class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Min(1)
+    @Schema(name = "Client ID", example = "1", required = false)
     private Integer id;
+
+    @Size(min = 3, max=60)
+    @NotBlank
+    @Schema(name = "Client name", example = "Equipo cuatro", required = true)
     private String nombre;
+
+    @NotBlank
+    @Schema(name = "Client email", example = "Eqcuatro@dxc.com", required = true)
     private String email;
+
+    @NotBlank
+    @Schema(name = "Client address", example = "C/Equipo cuatro", required = true)
     private String direccion;
+
+    @NotNull
+    @Schema(name = "Date Client created", example = "2023-08-12", required = true)
     private LocalDate alta;
+
+    @Schema(name = "Client active", example = "true", required = true)
     private boolean activo;
+
+    @Schema(name = "Client moroso", example = "false", required = true)
     private boolean moroso;
 //    @Transient
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "cliente")
     @ToString.Exclude
     @JsonIgnore
+    @Schema(name = "Client accounts list", example = "modelo cuenta", required = false)
     private List<Cuenta> cuentas;
 //    @Transient
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "cliente")
     @ToString.Exclude
     @JsonIgnore
+    @Schema(name = "Client loans list", example = "modelo préstamo", required = false)
     private List<Prestamo> prestamos;
 
     /* CONSTRUCTOR */

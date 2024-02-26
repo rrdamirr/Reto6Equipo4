@@ -1,7 +1,9 @@
 package es.netmind.mypersonalbankapi.modelos.clientes;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -11,7 +13,10 @@ import java.util.Arrays;
 @NoArgsConstructor
 @ToString
 @Entity
+@Schema(name = "Empresa", description = "Modelo empresa")
 public class Empresa extends Cliente {
+
+    @Schema(name = "Client cif", example = "true", required = true)
     private String cif;
     private String[] unidadesNegocio;
 
