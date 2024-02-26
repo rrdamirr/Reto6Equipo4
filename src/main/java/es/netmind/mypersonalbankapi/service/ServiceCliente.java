@@ -50,13 +50,38 @@ public class ServiceCliente implements IServiceCliente {
         return clientesRepo.save(empresa);
     }
 
-    @Override
+   /* @Override
     public Cliente updateClient(Integer id, Cliente client) {
-        return null;
+        Cliente newCliente = clientesRepo.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
+        newCliente.setDireccion(client.getDireccion());
+        newCliente.setNombre(client.getNombre());
+        newCliente.setAlta(client.getAlta());
+        return clientesRepo.save(newCliente);
+    }*/
+    @Override
+    public Empresa updateClientEmp(Integer id, Empresa empresa) {
+        Empresa newEmpresa = (Empresa) clientesRepo.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
+        newEmpresa.setDireccion(empresa.getDireccion());
+        newEmpresa.setEmail(empresa.getEmail());
+        newEmpresa.setNombre(empresa.getNombre());
+        newEmpresa.setAlta(empresa.getAlta());
+        return clientesRepo.save(newEmpresa);
+    }
+
+    @Override
+    public Personal updateClientPers(Integer id, Personal personal) {
+        Personal newPersonal = (Personal) clientesRepo.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
+        newPersonal.setDireccion(personal.getDireccion());
+        newPersonal.setEmail(personal.getEmail());
+        newPersonal.setNombre(personal.getNombre());
+        newPersonal.setAlta(personal.getAlta());
+        return clientesRepo.save(newPersonal);
     }
 
     @Override
     public void deleteClient(Integer id) {
-
+        Cliente cliente = clientesRepo.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
+        this.clientesRepo.delete(cliente);
     }
+
 }
