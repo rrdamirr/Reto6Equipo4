@@ -21,6 +21,7 @@ public interface IServiceCliente {
 
     public void deleteClient(Integer id);
 
+    public Boolean evaluarPrestamo(Integer id, Double q);
 
 
 }

@@ -28,9 +28,9 @@ import java.util.List;
 @RequestMapping("/clients")
 @Validated
 @Tag(name = "Clients API", description = "Clients management APIs")
-public class ClientesControlerAPI {
+public class ClientesControllerAPI {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClientesControlerAPI.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClientesControllerAPI.class);
 
 
     @Autowired
@@ -56,7 +56,6 @@ public class ClientesControlerAPI {
     ) {
         // return clientesRepo.findById(id).get();
         try {
-
             return ResponseEntity.status(HttpStatus.OK).body(service.getClient(id));
         } catch (ClienteNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -83,15 +82,27 @@ public class ClientesControlerAPI {
         return ResponseEntity.noContent().build();
     }
     @PutMapping("/empresa/{cid}")
-    public ResponseEntity<Empresa> update(@RequestBody Empresa empresa,@PathVariable("cid") @Min(1) Integer id) {
+    public ResponseEntity<Empresa> update(@RequestBody @Valid Empresa empresa,@PathVariable("cid") @Min(1) Integer id) {
         empresa.setId(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.updateClientEmp(id, empresa));
     }
 
     @PutMapping("/personal/{cid}")
-    public ResponseEntity<Personal> update(@RequestBody Personal personal,@PathVariable("cid") @Min(1) Integer id) {
+    public ResponseEntity<Personal> update(@RequestBody @Valid Personal personal,@PathVariable("cid") @Min(1) Integer id) {
         personal.setId(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.updateClientPers(id, personal));
     }
+
+    @GetMapping("/loan/{cid}?cant={quantity}")
+    public ResponseEntity<Boolean> evaluarPrestamo(@PathVariable("cid") @Min(1) Integer id, @PathVariable("quantity") @Min(1) Double q){
+
+        try {
+            return new ResponseEntity<>(service.evaluarPrestamo(id, q), HttpStatus.OK);
+        } catch (ClienteNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+    }
+
 }
 
