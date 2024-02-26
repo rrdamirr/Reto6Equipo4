@@ -81,5 +81,16 @@ public class ClientesControlerAPI {
         this.service.deleteClient(id);
         return ResponseEntity.noContent().build();
     }
+    @PutMapping("/empresa/{cid}")
+    public ResponseEntity<Empresa> update(@RequestBody Empresa empresa,@PathVariable("cid") @Min(1) Integer id) {
+        empresa.setId(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.updateClientEmp(id, empresa));
+    }
+
+    @PutMapping("/personal/{cid}")
+    public ResponseEntity<Personal> update(@RequestBody Personal personal,@PathVariable("cid") @Min(1) Integer id) {
+        personal.setId(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.updateClientPers(id, personal));
+    }
 }
 

@@ -15,9 +15,12 @@ public interface IServiceCliente {
     public Personal createPersonal(Personal personal);
     public Empresa createEmpresa(Empresa empresa);
 
-    public Cliente updateClient(Integer id, Cliente client);
+  //  public Cliente updateClient(Integer id, Cliente client);
+    public Empresa updateClientEmp(Integer id, Empresa empresa);
+    public Personal updateClientPers(Integer id, Personal personal);
 
     public void deleteClient(Integer id);
+
 
 
 }
