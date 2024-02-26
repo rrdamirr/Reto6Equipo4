@@ -52,11 +52,16 @@ public class ServiceCliente implements IServiceCliente {
 
     @Override
     public Cliente updateClient(Integer id, Cliente client) {
-        return null;
+        Cliente newCliente = clientesRepo.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
+        newCliente.setDireccion(client.getDireccion());
+        newCliente.setNombre(client.getNombre());
+        newCliente.setAlta(client.getAlta());
+        return clientesRepo.save(newCliente);
     }
 
     @Override
     public void deleteClient(Integer id) {
-
+        Cliente cliente = clientesRepo.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
+        this.clientesRepo.delete(cliente);
     }
 }

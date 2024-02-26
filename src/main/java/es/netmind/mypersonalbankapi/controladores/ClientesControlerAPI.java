@@ -76,6 +76,10 @@ public class ClientesControlerAPI {
         return new ResponseEntity<>(service.createEmpresa(newEmpresa), HttpStatus.CREATED);
     }
 
-
+    @DeleteMapping(value = "/{cid}")
+    public ResponseEntity delete(@PathVariable("cid") @Min(1) Integer id) {
+        this.service.deleteClient(id);
+        return ResponseEntity.noContent().build();
+    }
 }
 
