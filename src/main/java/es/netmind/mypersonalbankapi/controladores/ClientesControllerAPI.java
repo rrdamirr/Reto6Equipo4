@@ -28,9 +28,9 @@ import java.util.List;
 @RequestMapping("/clients")
 @Validated
 @Tag(name = "Clients API", description = "Clients management APIs")
-public class ClientesControlerAPI {
+public class ClientesControllerAPI {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClientesControlerAPI.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClientesControllerAPI.class);
 
 
     @Autowired
@@ -92,6 +92,12 @@ public class ClientesControlerAPI {
     public ResponseEntity<Personal> update(@RequestBody Personal personal,@PathVariable("cid") @Min(1) Integer id) {
         personal.setId(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.updateClientPers(id, personal));
+    }
+
+    @GetMapping("/loan/{cid}")
+    public ResponseEntity<Boolean> evaluarPrestamo(@PathVariable("cid") @Min(1) Integer id, @RequestParam(value = "cant", required = true) @Min(1) Double cant){
+         return ResponseEntity.status(HttpStatus.OK).body(service.evaluarPrestamos(id,cant));
+
     }
 }
 

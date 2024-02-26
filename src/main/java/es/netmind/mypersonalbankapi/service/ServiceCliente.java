@@ -5,12 +5,14 @@ import es.netmind.mypersonalbankapi.exceptions.ClienteNotFoundException;
 import es.netmind.mypersonalbankapi.modelos.clientes.Cliente;
 import es.netmind.mypersonalbankapi.modelos.clientes.Empresa;
 import es.netmind.mypersonalbankapi.modelos.clientes.Personal;
+import es.netmind.mypersonalbankapi.modelos.prestamos.Prestamo;
 import es.netmind.mypersonalbankapi.persistencia.IClientesRepoData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -82,6 +84,14 @@ public class ServiceCliente implements IServiceCliente {
     public void deleteClient(Integer id) {
         Cliente cliente = clientesRepo.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
         this.clientesRepo.delete(cliente);
+    }
+
+    @Override
+    public Boolean evaluarPrestamos(Integer id, Double cantidad) {
+        Cliente client = clientesRepo.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
+        Prestamo prestamo = new Prestamo(null, LocalDate.now(), cantidad, cantidad, 10, 5, false, false, 5);
+        Boolean aceptado = client.evaluarSolicitudPrestamo(prestamo);
+        return aceptado;
     }
 
 }
