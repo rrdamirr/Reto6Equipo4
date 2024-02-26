@@ -1,23 +1,29 @@
-<mxfile host="app.diagrams.net" modified="2024-02-21T10:27:41.188Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" etag="CNc5NeGXtx_kUj5Dv4TY" version="23.1.5" type="device">
+<mxfile host="app.diagrams.net" modified="2024-02-21T12:18:28.439Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" etag="TWXxnfTQcm4XSt2IilnM" version="23.1.5" type="device">
   <diagram name="Página-1" id="hVysNRHPYC1JOJ_7wGxp">
     <mxGraphModel dx="1434" dy="790" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="jklClVFtODYGZi_2g86n-1" value="/clients&lt;br&gt;GET -&amp;gt; listar clientes&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; =&amp;gt;&amp;nbsp;&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;lt;= 200 json, 400, 500, 404&amp;nbsp;&lt;br&gt;POST -&amp;gt; crear nueva&amp;nbsp;&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;=&amp;gt; json&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;lt;= 201 json, 422" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
-          <mxGeometry x="260" y="70" width="250" height="130" as="geometry" />
+        <mxCell id="jklClVFtODYGZi_2g86n-1" value="/clients&lt;br&gt;GET -&amp;gt; listar clientes&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; =&amp;gt;&amp;nbsp;&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;lt;= 200 json, 400, 500, 404&amp;nbsp;&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="260" y="73" width="250" height="130" as="geometry" />
         </mxCell>
         <mxCell id="jklClVFtODYGZi_2g86n-2" value="SERVICIO CLIENTES" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="290" y="40" width="166" height="30" as="geometry" />
         </mxCell>
         <mxCell id="jklClVFtODYGZi_2g86n-3" value="/clients/{cid}&lt;br&gt;GET -&amp;gt; devolver uno&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; =&amp;gt;&amp;nbsp;&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;lt;= 200 json, 404, 412&amp;nbsp;&lt;br&gt;PUT -&amp;gt; actualizar&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;=&amp;gt; json&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;lt;= 202 json, 404, 422, 412&lt;br&gt;DELETE -&amp;gt; borrar&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; =&amp;gt;&amp;nbsp;&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;lt;=&amp;nbsp; 204, 404" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
-          <mxGeometry x="260" y="219" width="250" height="161" as="geometry" />
+          <mxGeometry x="260" y="210" width="250" height="161" as="geometry" />
         </mxCell>
         <mxCell id="jklClVFtODYGZi_2g86n-4" value="/clients/loan/{cid}&lt;br&gt;GET -&amp;gt; lista prestamos&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; =&amp;gt;&amp;nbsp;&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;lt;= 200 json {loans}, 404, 412&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="260" y="390" width="250" height="90" as="geometry" />
+          <mxGeometry x="260" y="560" width="250" height="90" as="geometry" />
         </mxCell>
         <mxCell id="jklClVFtODYGZi_2g86n-6" value="/clients/loan/{cid}?cant={q}&lt;br&gt;GET -&amp;gt; evaluar prestamos&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; =&amp;gt;&amp;nbsp;&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;lt;= 200, 404, 412&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="260" y="490" width="250" height="90" as="geometry" />
+          <mxGeometry x="260" y="660" width="250" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="jklClVFtODYGZi_2g86n-7" value="/clients/personal&lt;br&gt;POST -&amp;gt; crear nueva&amp;nbsp;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&#x9;=&amp;gt; json&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;lt;= 201 json, 422&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="260" y="381" width="250" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="jklClVFtODYGZi_2g86n-8" value="/clients/empresa&lt;br&gt;POST -&amp;gt; crear nueva&amp;nbsp;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&#x9;=&amp;gt; json&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;lt;= 201 json, 422&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="260" y="470" width="250" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
