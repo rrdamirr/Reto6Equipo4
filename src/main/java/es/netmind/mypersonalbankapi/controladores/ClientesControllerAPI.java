@@ -94,7 +94,7 @@ public class ClientesControllerAPI {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.updateClientPers(id, personal));
     }
 
-    @GetMapping("/loan/{cid}")
+    @GetMapping("/{cid}/loan")
     public ResponseEntity<Boolean> evaluarPrestamo(@PathVariable("cid") @Min(1) Integer id, @RequestParam(value = "cant", required = true) @Min(1) Double cant){
          return ResponseEntity.status(HttpStatus.OK).body(service.evaluarPrestamos(id,cant));
 
